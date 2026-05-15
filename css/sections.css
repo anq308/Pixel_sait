@@ -483,42 +483,132 @@
 }
 
 .faq-accordion {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .faq-item {
-    border-bottom: 1px solid var(--card-border);
+    background: #0a0a0a;
+    border: 3px solid #333;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent-color);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease;
+}
+
+.faq-item:hover, .faq-item.active {
+    border-color: #fff;
+    box-shadow: 8px 8px 0px 0px rgba(255, 255, 255, 0.1);
+    transform: translate(-4px, -4px);
+}
+
+.faq-item:hover::before, .faq-item.active::before {
+    transform: scaleY(1);
 }
 
 .faq-header {
-    padding: 30px 0;
+    padding: 25px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: transparent;
+}
+
+.faq-q {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.faq-prompt {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+.faq-header h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-heading);
 }
 
 .faq-icon {
-    font-size: 1.5rem;
-    transition: var(--transition);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem;
+    color: #fff;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.faq-icon::before {
+    content: '[+]';
 }
 
 .faq-content {
     max-height: 0;
     overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: #050505;
+}
+
+.faq-a {
+    padding: 0 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.faq-response {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    color: #00ff00;
+    opacity: 0.8;
 }
 
 .faq-content p {
-    padding-bottom: 30px;
+    color: #ccc;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.faq-content p::after {
+    content: '_';
+    animation: blink 1s infinite;
+    color: #00ff00;
+    margin-left: 5px;
 }
 
 .faq-item.active .faq-icon {
-    transform: rotate(45deg);
+    color: var(--accent-color);
+}
+
+.faq-item.active .faq-icon::before {
+    content: '[-]';
 }
 
 .faq-item.active .faq-content {
-    max-height: 200px;
+    max-height: 400px;
 }
 
 /* --- ATMOSPHERE GRID (2x2) --- */

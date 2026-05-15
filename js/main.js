@@ -28,8 +28,11 @@ window.addEventListener('scroll', () => {
 const sidebarItems = document.querySelectorAll('.sidebar-item');
 const displayContents = document.querySelectorAll('.display-content');
 
-function typeText(p) {
+function typeText(p, speed = 15) {
     if (!p) return;
+    if (p.timeoutId) {
+        clearTimeout(p.timeoutId);
+    }
     const originalText = p.getAttribute('data-text') || p.textContent;
     p.setAttribute('data-text', originalText); // save original text
     p.textContent = ''; // clear text
@@ -39,7 +42,7 @@ function typeText(p) {
         if (i < originalText.length) {
             p.textContent += originalText.charAt(i);
             i++;
-            setTimeout(type, 15); // typing speed
+            p.timeoutId = setTimeout(type, speed);
         }
     }
     type();
@@ -107,10 +110,24 @@ faqItems.forEach(item => {
     header.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
         
-        faqItems.forEach(i => i.classList.remove('active'));
+        faqItems.forEach(i => {
+            i.classList.remove('active');
+            // Stop typing if another item is clicked
+            const p = i.querySelector('.faq-content p');
+            if (p && p.timeoutId) {
+                clearTimeout(p.timeoutId);
+                if (p.getAttribute('data-text')) {
+                    p.textContent = p.getAttribute('data-text');
+                }
+            }
+        });
         
         if (!isActive) {
             item.classList.add('active');
+            const p = item.querySelector('.faq-content p');
+            if (p) {
+                typeText(p, 10); // slightly faster for longer text
+            }
         }
     });
 });
