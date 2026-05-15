@@ -1,0 +1,96 @@
+/* --- TYPOGRAPHY & UI --- */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+p {
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.gradient-text {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.btn {
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn.primary {
+    background: #fff;
+    color: #000;
+}
+
+.btn.primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-gradient);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.btn.primary:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.btn.primary:hover {
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 255, 102, 0.2);
+}
+
+.btn.secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-left: 15px;
+}
+
+.btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #fff;
+}
+
+.btn-text {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.btn-text:hover span {
+    transform: translateX(5px);
+}

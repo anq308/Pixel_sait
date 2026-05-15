@@ -1,0 +1,85 @@
+/* --- REVEAL CLASSES (Slide from side) --- */
+.reveal-text, .service-card, .project-item, .process-step, .bento-item {
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Slide from left for odd items */
+.reveal-text:nth-child(odd), 
+.service-card:nth-child(odd), 
+.project-item:nth-child(odd), 
+.process-step:nth-child(odd), 
+.bento-item:nth-child(odd) {
+    transform: translateX(-100px);
+}
+
+/* Slide from right for even items */
+.reveal-text:nth-child(even), 
+.service-card:nth-child(even), 
+.project-item:nth-child(even), 
+.process-step:nth-child(even), 
+.bento-item:nth-child(even) {
+    transform: translateX(100px);
+}
+
+.reveal-text.visible, 
+.service-card.visible, 
+.project-item.visible, 
+.process-step.visible, 
+.bento-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Stagger delays */
+.service-card:nth-child(1) { transition-delay: 0.1s; }
+.service-card:nth-child(2) { transition-delay: 0.2s; }
+.service-card:nth-child(3) { transition-delay: 0.3s; }
+.service-card:nth-child(4) { transition-delay: 0.4s; }
+
+/* --- SECTION REVEAL --- */
+.scroll-block {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.scroll-block.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* --- LINE REVEAL --- */
+.reveal-text .reveal-line {
+    display: block;
+    overflow: hidden;
+}
+
+.reveal-text .reveal-line span {
+    display: block;
+    transform: translateY(100%);
+    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal-text.visible .reveal-line span {
+    transform: translateY(0);
+}
+
+.reveal-text .reveal-line:nth-child(2) span {
+    transition-delay: 0.2s;
+}
+
+/* --- NOISE TEXTURE --- */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    filter: url(#noiseFilter);
+    opacity: 0.04;
+    z-index: 9999;
+    pointer-events: none;
+}

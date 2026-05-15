@@ -1,0 +1,31 @@
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --text-dim: #888888;
+    --accent-color: #ffffff;
+    --accent-gradient: none;
+    --card-bg: #000000;
+    --card-border: #ffffff;
+    --font-heading: 'Press Start 2P', monospace;
+    --font-body: 'Courier New', monospace;
+    --transition: all 0.2s;
+    --transition-fast: all 0.1s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+}
+
+body {
+    overflow-x: hidden;
+    font-family: var(--font-body);
+}

@@ -1,0 +1,9 @@
+/* --- HERO COMPUTER --- */
+.hero-computer {
+    width: 450px;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}

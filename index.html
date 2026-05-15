@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KREO — Студия цифрового превосходства</title>
+    <meta name="description" content="Создаем уникальные цифровые решения, которые выделяют ваш бизнес среди конкурентов. Дизайн, разработка, анимация.">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/pixel-overrides.css">
+    <link rel="stylesheet" href="css/preloader.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/computer.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Syne:wght@700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <span class="preloader-logo">KREO</span>
+            <div class="preloader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">KREO<span>.</span></a>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">О нас</a>
+                <a href="#services" class="nav-link">Услуги</a>
+                <a href="#projects" class="nav-link">Кейсы</a>
+                <a href="#process" class="nav-link">Процесс</a>
+                <a href="#contact" class="btn-cta">Обсудить проект</a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 1. HERO SECTION -->
+        <section class="hero" id="hero">
+            <div class="glow-orb orb-green circle-blur"></div>
+            <div class="glow-orb orb-blue circle-blur-2"></div>
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="subtitle reveal-text">Digital Production Agency</span>
+                    <h1 class="reveal-text">Создаем цифровое искусство, которое продает.</h1>
+                    <p class="reveal-text">Мы не используем шаблоны. Каждый наш проект — это уникальное погружение в бренд, соединенное с передовыми технологиями и безупречным UX.</p>
+                    <div class="hero-btns reveal-text">
+                        <a href="#projects" class="btn primary">Смотреть работы</a>
+                        <a href="#services" class="btn secondary">Наши услуги</a>
+                    </div>
+                </div>
+                <div class="hero-computer" id="hero-computer"></div>
+            </div>
+            <div class="hero-ticker">
+                <div class="ticker-content">
+                    <span>WEB DESIGN</span>
+                    <span>•</span>
+                    <span>DEVELOPMENT</span>
+                    <span>•</span>
+                    <span>MOTION</span>
+                    <span>•</span>
+                    <span>BRANDING</span>
+                    <span>•</span>
+                    <span>UI/UX</span>
+                    <span>•</span>
+                </div>
+                <div class="ticker-content">
+                    <span>WEB DESIGN</span>
+                    <span>•</span>
+                    <span>DEVELOPMENT</span>
+                    <span>•</span>
+                    <span>MOTION</span>
+                    <span>•</span>
+                    <span>BRANDING</span>
+                    <span>•</span>
+                    <span>UI/UX</span>
+                    <span>•</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT / MANIFESTO -->
+        <section class="about scroll-block" id="about">
+            <div class="container">
+                <div class="grid-2">
+                    <div class="about-title">
+                        <span class="tag">Кто мы</span>
+                        <h2>Мы ломаем стереотипы веб-разработки</h2>
+                    </div>
+                    <div class="about-text">
+                        <p class="accent-p">В мире одинаковых сайтов мы создаем цифровые артефакты, которые запоминаются.</p>
+                        <p>KREO — это команда бунтарей и перфекционистов. Мы объединили дерзкий креатив с математически точной разработкой. Наша цель — не просто сделать красиво, а решить бизнес-задачу клиента так, чтобы конкуренты начали завидовать.</p>
+                        <div class="about-signature">
+                            <span class="sig-name">KREO Team</span>
+                            <span class="sig-title">Смелость. Качество. Результат.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SERVICES -->
+        <section class="services scroll-block" id="services" style="position: relative; overflow: hidden;">
+            <div class="glow-orb orb-purple" style="top: -100px; right: -100px; width: 400px; height: 400px;"></div>
+            <div class="container">
+                <div class="section-header center">
+                    <span class="tag">Что мы умеем</span>
+                    <h2>Наши компетенции</h2>
+                </div>
+                <div class="competencies-browser">
+                    <!-- Sidebar (Navigation) -->
+                    <div class="browser-sidebar">
+                        <div class="sidebar-item active" data-target="ui-ux">
+                            <span class="item-num">01</span> Web Design
+                        </div>
+                        <div class="sidebar-item" data-target="dev">
+                            <span class="item-num">02</span> Development
+                        </div>
+                        <div class="sidebar-item" data-target="branding">
+                            <span class="item-num">03</span> Branding
+                        </div>
+                        <div class="sidebar-item" data-target="motion">
+                            <span class="item-num">04</span> Motion & 3D
+                        </div>
+                    </div>
+
+                    <!-- Display Area -->
+                    <div class="browser-display">
+                        <!-- Screen 1 -->
+                        <div class="display-content active" id="ui-ux">
+                            <div class="terminal-header">
+                                <span class="terminal-title">UI_UX_MODULE.EXE</span>
+                                <div class="terminal-controls">
+                                    <span>_</span>
+                                    <span>□</span>
+                                    <span>×</span>
+                                </div>
+                            </div>
+                            <div class="terminal-body">
+                                <h3>Web Design & UI/UX</h3>
+                                <p>Создаем интерфейсы, в которых хочется остаться. Глубокая аналитика, интерактивные прототипы и визуальный стиль, который транслирует ценности бренда.</p>
+                                <div class="pixel-status">
+                                    [STATUS: READY]<br>
+                                    [LOAD: 100%]<br>
+                                    [FOCUS: PIXEL PERFECT]
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Screen 2 -->
+                        <div class="display-content" id="dev">
+                            <div class="terminal-header">
+                                <span class="terminal-title">DEV_SYSTEM.EXE</span>
+                                <div class="terminal-controls">
+                                    <span>_</span>
+                                    <span>□</span>
+                                    <span>×</span>
+                                </div>
+                            </div>
+                            <div class="terminal-body">
+                                <h3>Development</h3>
+                                <p>Быстрый, адаптивный и чистый код. Мы не боимся сложных интеграций и нестандартной анимации. Наш стек обеспечивает максимальную производительность.</p>
+                                <div class="pixel-status">
+                                    [STACK: HTML/CSS/JS]<br>
+                                    [SPEED: OPTIMIZED]<br>
+                                    [COMPLEXITY: NO LIMIT]
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Screen 3 -->
+                        <div class="display-content" id="branding">
+                            <div class="terminal-header">
+                                <span class="terminal-title">BRAND_ID.EXE</span>
+                                <div class="terminal-controls">
+                                    <span>_</span>
+                                    <span>□</span>
+                                    <span>×</span>
+                                </div>
+                            </div>
+                            <div class="terminal-body">
+                                <h3>Branding</h3>
+                                <p>Разработка айдентики с нуля. Логотипы, фирменный стиль, гайдлайны. Создаем визуальный язык, на котором ваш бренд будет говорить с миром.</p>
+                                <div class="pixel-status">
+                                    [STYLE: BRUTALISM]<br>
+                                    [IMPACT: HIGH]<br>
+                                    [IDENTITY: UNIQUE]
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Screen 4 -->
+                        <div class="display-content" id="motion">
+                            <div class="terminal-header">
+                                <span class="terminal-title">MOTION_3D.EXE</span>
+                                <div class="terminal-controls">
+                                    <span>_</span>
+                                    <span>□</span>
+                                    <span>×</span>
+                                </div>
+                            </div>
+                            <div class="terminal-body">
+                                <h3>Motion & 3D</h3>
+                                <p>Оживляем интерфейсы. Добавляем кинематографичные переходы, 3D-элементы и микро-взаимодействия, которые создают WOW-эффект.</p>
+                                <div class="pixel-status">
+                                    [FPS: 60]<br>
+                                    [3D: ENABLED]<br>
+                                    [WOW_EFFECT: 100%]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SELECTED PROJECTS -->
+        <section class="projects" id="projects">
+            <div class="projects-sticky">
+                <div class="container">
+                    <div class="section-header split">
+                        <div>
+                            <span class="tag">Портфолио</span>
+                            <h2>Отобранные кейсы</h2>
+                        </div>
+                        <a href="#" class="btn-text">Все проекты <span>→</span></a>
+                    </div>
+                </div>
+                <div class="projects-slider-wrapper">
+                    <div class="projects-slider">
+                        <!-- Project 1 -->
+                        <div class="project-card-custom">
+                            <div class="project-img" style="background: linear-gradient(135deg, #2b1055, #7597de);"></div>
+                            <div class="project-info-custom">
+                                <div class="project-tags"><span>UI/UX</span><span>WebGL</span></div>
+                                <h3>Nebula Space</h3>
+                                <p>Интерактивная вселенная для космического стартапа.</p>
+                            </div>
+                        </div>
+                        <!-- Project 2 -->
+                        <div class="project-card-custom">
+                            <div class="project-img" style="background: linear-gradient(135deg, #1f4037, #99f2c8);"></div>
+                            <div class="project-info-custom">
+                                <div class="project-tags"><span>Branding</span></div>
+                                <h3>Eco Mind</h3>
+                                <p>Айдентика и сайт для экологического бренда.</p>
+                            </div>
+                        </div>
+                        <!-- Project 3 -->
+                        <div class="project-card-custom">
+                            <div class="project-img" style="background: linear-gradient(135deg, #f12711, #f5af19);"></div>
+                            <div class="project-info-custom">
+                                <div class="project-tags"><span>E-commerce</span></div>
+                                <h3>Cyber Wear</h3>
+                                <p>Магазин одежды будущего с 3D примеркой.</p>
+                            </div>
+                        </div>
+                        <!-- Project 4 -->
+                        <div class="project-card-custom">
+                            <div class="project-img" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></div>
+                            <div class="project-info-custom">
+                                <div class="project-tags"><span>Mobile App</span></div>
+                                <h3>Fit Track</h3>
+                                <p>Приложение для мониторинга здоровья нового поколения.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. PROCESS -->
+        <section class="process scroll-block" id="process" style="position: relative; overflow: hidden;">
+            <div class="glow-orb orb-green" style="bottom: -200px; left: -100px; width: 500px; height: 500px;"></div>
+            <div class="container">
+                <div class="section-header center">
+                    <span class="tag">Как мы работаем</span>
+                    <h2>Путь к результату</h2>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-line"></div>
+                        <div class="step-num">01</div>
+                        <h4>Погружение</h4>
+                        <p>Изучаем ваш бизнес, конкурентов и целевую аудиторию. Формируем стратегию.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-line"></div>
+                        <div class="step-num">02</div>
+                        <h4>Концепт</h4>
+                        <p>Разрабатываем дизайн-концепцию, ищем визуальный стиль и согласовываем мудборды.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-line"></div>
+                        <div class="step-num">03</div>
+                        <h4>Создание</h4>
+                        <p>Верстаем, программируем, настраиваем анимацию и интеграции. Все под строгим контролем.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-line"></div>
+                        <div class="step-num">04</div>
+                        <h4>Запуск</h4>
+                        <p>Тестируем на всех устройствах, выкатываем в продакшн и празднуем успех.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. STATS -->
+        <section class="stats scroll-block">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="50">0</span><span class="stat-plus">+</span>
+                        <p>Успешных проектов</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="12">0</span><span class="stat-plus">+</span>
+                        <p>Наград за дизайн</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="5">0</span><span class="stat-plus">лет</span>
+                        <p>Опыта в digital</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="98">0</span><span class="stat-plus">%</span>
+                        <p>Довольных клиентов</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. TESTIMONIALS -->
+        <section class="testimonials scroll-block">
+            <div class="container">
+                <div class="section-header center">
+                    <span class="tag">Отзывы</span>
+                    <h2>Что говорят о нас</h2>
+                </div>
+                <div class="testimonials-stack">
+                    <!-- Card 1 -->
+                    <div class="testimonial-card-stacked">
+                        <div class="quote-icon">“</div>
+                        <p>Студия KREO превзошла все наши ожидания. Они создали сайт, который не только выглядит потрясающе, но и увеличил нашу конверсию на 40%. Рекомендуем!</p>
+                        <div class="author">
+                            <div class="author-avatar" style="background: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80') center/cover;"></div>
+                            <div class="author-info">
+                                <span class="author-name">Александр Петров</span>
+                                <span class="author-title">CEO, TechVision</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="testimonial-card-stacked">
+                        <div class="quote-icon">“</div>
+                        <p>Команда профессионалов. Работа над ребрендингом прошла гладко, а результат превзошел все ожидания. Внимание к деталям на высшем уровне.</p>
+                        <div class="author">
+                            <div class="author-avatar" style="background: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80') center/cover;"></div>
+                            <div class="author-info">
+                                <span class="author-name">Елена Иванова</span>
+                                <span class="author-title">Маркетинг директор, GreenLine</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="testimonial-card-stacked">
+                        <div class="quote-icon">“</div>
+                        <p>Искали студию, которая сможет сделать не просто сайт, а произведение искусства. KREO справились с этой задачей на 100%. Спасибо за работу!</p>
+                        <div class="author">
+                            <div class="author-avatar" style="background: url('https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80') center/cover;"></div>
+                            <div class="author-info">
+                                <span class="author-name">Михаил Соколов</span>
+                                <span class="author-title">Основатель, ArtSpace</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. FAQ -->
+        <section class="faq scroll-block">
+            <div class="container">
+                <div class="section-header center">
+                    <span class="tag">Вопросы и ответы</span>
+                    <h2>Часто спрашивают</h2>
+                </div>
+                <div class="faq-accordion">
+                    <!-- Item 1 -->
+                    <div class="faq-item">
+                        <div class="faq-header">
+                            <h4>Сколько времени занимает создание сайта?</h4>
+                            <div class="faq-icon">+</div>
+                        </div>
+                        <div class="faq-content">
+                            <p>В среднем разработка уникального лендинга занимает от 3 до 5 недель. Сложные корпоративные сайты или интернет-магазины могут занимать от 2 до 4 месяцев. Все зависит от объема и сложности задач.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="faq-item">
+                        <div class="faq-header">
+                            <h4>Почему вы не работаете по шаблонам?</h4>
+                            <div class="faq-icon">+</div>
+                        </div>
+                        <div class="faq-content">
+                            <p>Шаблоны ограничивают бизнес и делают его похожим на сотни других. Мы создаем индивидуальный дизайн, который учитывает именно ваши бизнес-цели и особенности аудитории.</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="faq-item">
+                        <div class="faq-header">
+                            <h4>Входит ли SEO в разработку?</h4>
+                            <div class="faq-icon">+</div>
+                        </div>
+                        <div class="faq-content">
+                            <p>Да, мы закладываем базовую SEO-оптимизацию на этапе разработки: правильную структуру заголовков, высокую скорость загрузки, семантический код и мета-теги.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. ATMOSPHERE -->
+        <section class="team scroll-block">
+            <div class="container">
+                <div class="section-header split">
+                    <div>
+                        <span class="tag">Наша атмосфера</span>
+                        <h2>Люди, которые создают магию</h2>
+                    </div>
+                </div>
+                <div class="atmosphere-grid">
+                    <!-- Card 1 -->
+                    <div class="atmosphere-card">
+                        <div class="atmosphere-img" style="background: url('img/1.png') center/cover;"></div>
+                        <div class="atmosphere-content">
+                            <h3>Сфокусированы на деталях</h3>
+                            <p>Каждый пиксель имеет значение. Мы доводим до идеала каждую мелочь.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="atmosphere-card">
+                        <div class="atmosphere-img" style="background: url('img/2.png') center/cover;"></div>
+                        <div class="atmosphere-content">
+                            <h3>24/7 Креатив</h3>
+                            <p>Идеи рождаются не по расписанию. Мы всегда в поиске нестандартных решений.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="atmosphere-card">
+                        <div class="atmosphere-img" style="background: url('img/3.png') center/cover;"></div>
+                        <div class="atmosphere-content">
+                            <h3>Командный дух</h3>
+                            <p>Мы — семья. Поддержка и синергия помогают нам брать любые высоты.</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="atmosphere-card">
+                        <div class="atmosphere-img" style="background: url('img/4.png') center/cover;"></div>
+                        <div class="atmosphere-content">
+                            <h3>Глобальное видение</h3>
+                            <p>Мы следим за мировыми трендами и создаем дизайн будущего.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. CTA / FOOTER -->
+        <section class="footer-cta pixel-style" id="contact">
+            <div class="container">
+                <div class="cta-wrapper-pixel">
+                    <span class="tag-pixel">SYSTEM.INIT()</span>
+                    <h2 class="scramble-trigger" data-text="ГОТОВЫ СОЗДАТЬ ЛЕГЕНДУ?">ГОТОВЫ СОЗДАТЬ ЛЕГЕНДУ?</h2>
+                    <p>Напишите нам, и мы обсудим ваш проект в деталях.</p>
+                    <a href="mailto:hello@kreo.agency" class="cta-email-pixel scramble-trigger" data-text="hello@kreo.agency">hello@kreo.agency</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 KREO Digital Agency. Все права защищены.</p>
+                <div class="footer-socials">
+                    <a href="#">Dribbble</a>
+                    <a href="#">Behance</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Noise Filter -->
+    <svg style="display:none;">
+      <filter id="noiseFilter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/>
+        <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.05 0"/>
+      </filter>
+    </svg>
+
+    <script src="js/preloader.js" defer></script>
+    <script src="js/scramble.js" defer></script>
+    <script src="js/symbols.js" defer></script>
+    <script src="js/scroll.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/computer-3d.js" type="module"></script>
+</body>
+</html>

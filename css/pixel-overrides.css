@@ -1,0 +1,51 @@
+/* --- PIXEL OVERRIDES --- */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading) !important;
+    text-transform: uppercase;
+}
+
+.btn, .service-card, .project-card-custom, .testimonial-card-stacked, .atmosphere-card, .faq-item {
+    border-radius: 0 !important;
+    border: 3px solid #fff !important;
+    background: #000 !important;
+    box-shadow: 8px 8px 0px 0px #fff !important;
+    transition: all 0.1s !important;
+}
+
+.btn {
+    color: #fff !important;
+    padding: 15px 30px !important;
+    font-family: var(--font-heading) !important;
+    font-size: 0.8rem !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover, .service-card:hover, .atmosphere-card:hover {
+    transform: translate(-3px, -3px) !important;
+    box-shadow: 11px 11px 0px 0px #fff !important;
+}
+
+.tag, .tag-pixel {
+    border-radius: 0 !important;
+    border: 2px solid #fff !important;
+    background: #fff !important;
+    color: #000 !important;
+    font-family: var(--font-body) !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+}
+
+/* Hide orbs, we will use flying symbols */
+.glow-orb, .circle-blur, .circle-blur-2 {
+    display: none !important;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
