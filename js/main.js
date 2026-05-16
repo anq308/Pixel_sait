@@ -147,3 +147,107 @@ document.addEventListener('mousemove', (e) => {
         circle.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
     });
 });
+
+// TERMINAL BRIEF MODAL LOGIC
+const openBriefBtns = document.querySelectorAll('#open-brief-btn, .btn-cta-nav[href="#contact"]');
+const briefModal = document.getElementById('brief-modal');
+const closeBriefBtn = document.getElementById('close-brief-btn');
+const termInput = document.getElementById('term-input');
+const termHistory = document.getElementById('term-history');
+
+let step = 0;
+const briefQuestions = [
+    "> ВВЕДИТЕ ВАШЕ ИМЯ:",
+    "> ВВЕДИТЕ EMAIL ИЛИ TELEGRAM:",
+    "> КАКОЙ У ВАС БЮДЖЕТ? (напр. 500.000+ руб):",
+    "> КРАТКО ОПИШИТЕ ВАШ ПРОЕКТ:",
+    "> ДАННЫЕ СОХРАНЕНЫ. МЫ СВЯЖЕМСЯ С ВАМИ В БЛИЖАЙШЕЕ ВРЕМЯ. ОТКЛЮЧЕНИЕ..."
+];
+let briefData = {};
+
+if (briefModal) {
+    openBriefBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            briefModal.classList.add('active');
+            termInput.focus();
+            if (window.playBootSound) window.playBootSound();
+        });
+    });
+
+    closeBriefBtn.addEventListener('click', () => {
+        briefModal.classList.remove('active');
+    });
+
+    // Close on click outside
+    briefModal.addEventListener('click', (e) => {
+        if (e.target === briefModal) {
+            briefModal.classList.remove('active');
+        }
+    });
+
+    // PLAY TYPING SOUND WHEN USER TYPES
+    termInput.addEventListener('input', () => {
+        if (window.playTypingSound) window.playTypingSound();
+    });
+
+    termInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const val = termInput.value.trim();
+            
+            // Validation
+            if (val.length < 2) {
+                const pError = document.createElement('p');
+                pError.style.color = 'red';
+                pError.textContent = `> ОШИБКА: НЕВЕРНЫЙ ВВОД. ПОЖАЛУЙСТА, ВВЕДИТЕ КОРРЕКТНЫЕ ДАННЫЕ.`;
+                termHistory.appendChild(pError);
+                termHistory.parentElement.scrollTop = termHistory.parentElement.scrollHeight;
+                if (window.playTypingSound) window.playTypingSound();
+                return;
+            }
+            
+            termInput.value = '';
+            
+            // Add user input to history
+            const pUser = document.createElement('p');
+            pUser.style.color = '#fff';
+            pUser.textContent = `> ${val}`;
+            termHistory.appendChild(pUser);
+            
+            // Save data based on step
+            if (step === 0) briefData.name = val;
+            if (step === 1) briefData.contact = val;
+            if (step === 2) briefData.budget = val;
+            if (step === 3) briefData.details = val;
+            
+            step++;
+            
+            // Add next question
+            const pBot = document.createElement('p');
+            pBot.textContent = briefQuestions[step] || "";
+            termHistory.appendChild(pBot);
+            
+            // Auto scroll
+            termHistory.parentElement.scrollTop = termHistory.parentElement.scrollHeight;
+            
+            if (window.playTypingSound) window.playTypingSound();
+
+            if (step >= briefQuestions.length - 1) {
+                termInput.disabled = true;
+                setTimeout(() => {
+                    briefModal.classList.remove('active');
+                    // Reset
+                    step = 0;
+                    termInput.disabled = false;
+                    termHistory.innerHTML = `
+                        <p>KREO.SYSTEM [Версия 1.0]</p>
+                        <p>(c) KREO Digital Agency. Все права защищены.</p>
+                        <br>
+                        <p>> ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА БРИФА...</p>
+                        <p>> ВВЕДИТЕ ВАШЕ ИМЯ:</p>
+                    `;
+                }, 3000);
+            }
+        }
+    });
+}

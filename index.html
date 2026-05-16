@@ -347,6 +347,46 @@
             </div>
         </section>
 
+        <!-- TECH STACK -->
+        <section class="tech-stack scroll-block">
+            <div class="marquee-wrapper">
+                <div class="marquee-track">
+                    <span>REACT</span><span class="star">*</span>
+                    <span>THREE.JS</span><span class="star">*</span>
+                    <span>LARAVEL</span><span class="star">*</span>
+                    <span>WEBGL</span><span class="star">*</span>
+                    <span>FIGMA</span><span class="star">*</span>
+                    <span>GSAP</span><span class="star">*</span>
+                    <span>NODE.JS</span><span class="star">*</span>
+                    <span>REACT</span><span class="star">*</span>
+                    <span>THREE.JS</span><span class="star">*</span>
+                    <span>LARAVEL</span><span class="star">*</span>
+                    <span>WEBGL</span><span class="star">*</span>
+                    <span>FIGMA</span><span class="star">*</span>
+                    <span>GSAP</span><span class="star">*</span>
+                    <span>NODE.JS</span><span class="star">*</span>
+                </div>
+            </div>
+            <div class="marquee-wrapper marquee-reverse">
+                <div class="marquee-track">
+                    <span>TAILWIND</span><span class="star">*</span>
+                    <span>TYPESCRIPT</span><span class="star">*</span>
+                    <span>VUE</span><span class="star">*</span>
+                    <span>PYTHON</span><span class="star">*</span>
+                    <span>DOCKER</span><span class="star">*</span>
+                    <span>AWS</span><span class="star">*</span>
+                    <span>BLENDER</span><span class="star">*</span>
+                    <span>TAILWIND</span><span class="star">*</span>
+                    <span>TYPESCRIPT</span><span class="star">*</span>
+                    <span>VUE</span><span class="star">*</span>
+                    <span>PYTHON</span><span class="star">*</span>
+                    <span>DOCKER</span><span class="star">*</span>
+                    <span>AWS</span><span class="star">*</span>
+                    <span>BLENDER</span><span class="star">*</span>
+                </div>
+            </div>
+        </section>
+
         <!-- 6. STATS -->
         <section class="stats scroll-block">
             <div class="container">
@@ -525,31 +565,66 @@
             </div>
         </section>
 
-        <!-- 10. CTA / FOOTER -->
-        <section class="footer-cta pixel-style" id="contact">
-            <div class="container">
-                <div class="cta-wrapper-pixel">
-                    <span class="tag-pixel">SYSTEM.INIT()</span>
-                    <h2 class="scramble-trigger" data-text="ГОТОВЫ СОЗДАТЬ ЛЕГЕНДУ?">ГОТОВЫ СОЗДАТЬ ЛЕГЕНДУ?</h2>
-                    <p>Напишите нам, и мы обсудим ваш проект в деталях.</p>
-                    <a href="mailto:hello@kreo.agency" class="cta-email-pixel scramble-trigger" data-text="hello@kreo.agency">hello@kreo.agency</a>
+        <!-- 10. MASSIVE FOOTER -->
+        <footer class="footer-massive pixel-style" id="contact">
+            <div class="footer-marquee">
+                <div class="footer-marquee-track">
+                    KREO DIGITAL AGENCY — KREO DIGITAL AGENCY — KREO DIGITAL AGENCY — 
                 </div>
             </div>
-        </section>
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h3>[ INITIATE ]</h3>
+                        <p>Готовы создать легенду? Запустите протокол обсуждения проекта.</p>
+                        <button class="btn-cta-nav btn-brief" id="open-brief-btn">START_BRIEF.EXE</button>
+                    </div>
+                    <div class="footer-col">
+                        <h3>[ CONTACTS ]</h3>
+                        <a href="mailto:hello@kreo.agency">HELLO@KREO.AGENCY</a>
+                        <a href="tel:+123456789">+1 (234) 567-89</a>
+                        <p>MOSCOW, RUSSIA</p>
+                    </div>
+                    <div class="footer-col">
+                        <h3>[ SOCIALS ]</h3>
+                        <a href="#">DRIBBBLE</a>
+                        <a href="#">BEHANCE</a>
+                        <a href="#">TELEGRAM</a>
+                        <a href="#">INSTAGRAM</a>
+                    </div>
+                </div>
+                <div class="footer-bottom-brutal">
+                    <p>&copy; 2026 KREO. SYSTEM OPERATIONAL.</p>
+                    <p>ALL SYSTEMS GO</p>
+                </div>
+            </div>
+        </footer>
     </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2026 KREO Digital Agency. Все права защищены.</p>
-                <div class="footer-socials">
-                    <a href="#">Dribbble</a>
-                    <a href="#">Behance</a>
-                    <a href="#">Instagram</a>
+    <!-- Terminal Brief Modal -->
+    <div class="terminal-modal-overlay" id="brief-modal">
+        <div class="terminal-modal-content">
+            <div class="terminal-header">
+                <span class="terminal-title">SYS_BRIEF.EXE</span>
+                <div class="terminal-controls">
+                    <span class="close-modal" id="close-brief-btn">×</span>
+                </div>
+            </div>
+            <div class="terminal-body form-body">
+                <div class="terminal-history" id="term-history">
+                    <p>KREO.SYSTEM [Версия 1.0]</p>
+                    <p>(c) KREO Digital Agency. Все права защищены.</p>
+                    <br>
+                    <p>> ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА БРИФА...</p>
+                    <p class="type-response">> ВВЕДИТЕ ВАШЕ ИМЯ:</p>
+                </div>
+                <div class="terminal-input-line">
+                    <span class="prompt">></span>
+                    <input type="text" id="term-input" class="term-input" autocomplete="off">
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
 
     <!-- Noise Filter -->
     <svg style="display:none;">
