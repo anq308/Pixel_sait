@@ -49,3 +49,45 @@ h1, h2, h3, h4 {
     margin: 0 auto;
     padding: 0 20px;
 }
+
+/* --- 5. МЕЛКИЕ ДЕТАЛИ (MINOR DETAILS) --- */
+
+/* Кастомное выделение текста */
+::selection {
+    background: #8cff8c;
+    color: #000;
+}
+::-moz-selection {
+    background: #8cff8c;
+    color: #000;
+}
+
+/* Кастомный скроллбар в бруталистичном стиле */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #000;
+    border-left: 2px solid #333;
+}
+::-webkit-scrollbar-thumb {
+    background: #8cff8c;
+    border: 2px solid #000;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #56d85d;
+}
+
+/* Глобальный эффект шума (Film Grain) для ретро-атмосферы */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+}
