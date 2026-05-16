@@ -64,61 +64,98 @@ function createPlasticTexture() {
   return texture;
 }
 
-function createScreenTexture() {
-  const canvas = document.createElement("canvas");
-  canvas.width = 512;
-  canvas.height = 320;
+let screenCanvas, screenCtx, screenTexture;
+let lastScreenUpdate = 0;
 
-  const ctx = canvas.getContext("2d");
+function initScreenTexture() {
+  screenCanvas = document.createElement("canvas");
+  screenCanvas.width = 1024;
+  screenCanvas.height = 640;
+  screenCtx = screenCanvas.getContext("2d");
 
-  ctx.fillStyle = "#041807";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  screenTexture = new THREE.CanvasTexture(screenCanvas);
+  screenTexture.magFilter = THREE.NearestFilter;
+  screenTexture.minFilter = THREE.NearestFilter;
+  
+  // Fix UV mapping for ExtrudeGeometry (width: 3.18, height: 1.82)
+  screenTexture.repeat.set(1 / 3.18, 1 / 1.82);
+  screenTexture.offset.set(0.5, 0.5);
+  
+  updateScreenTexture();
+  return screenTexture;
+}
 
-  const glow = ctx.createRadialGradient(256, 160, 40, 256, 160, 280);
+function updateScreenTexture() {
+  if (!screenCtx || !screenTexture) return;
+  
+  const now = Date.now();
+  // Throttle updates to ~15fps for retro feel
+  if (now - lastScreenUpdate < 60) return;
+  lastScreenUpdate = now;
+
+  const w = screenCanvas.width;
+  const h = screenCanvas.height;
+
+  // Base
+  screenCtx.fillStyle = "#041807";
+  screenCtx.fillRect(0, 0, w, h);
+
+  // Glow
+  const glow = screenCtx.createRadialGradient(512, 320, 80, 512, 320, 560);
   glow.addColorStop(0, "rgba(75, 190, 80, .12)");
   glow.addColorStop(1, "rgba(0, 0, 0, .18)");
-  ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  screenCtx.fillStyle = glow;
+  screenCtx.fillRect(0, 0, w, h);
 
-  for (let y = 0; y < canvas.height; y += 5) {
-    ctx.fillStyle = "rgba(0,0,0,.28)";
-    ctx.fillRect(0, y, canvas.width, 1);
+  // Static scanlines
+  for (let y = 0; y < h; y += 8) {
+    screenCtx.fillStyle = "rgba(0,0,0,.28)";
+    screenCtx.fillRect(0, y, w, 2);
   }
 
-  ctx.imageSmoothingEnabled = false;
-  ctx.font = "bold 36px monospace";
-  ctx.fillStyle = "#8cff8c";
-  ctx.shadowColor = "#8cff8c";
-  ctx.shadowBlur = 2;
+  // Moving scanline
+  const scanY = (now * 0.1) % h;
+  screenCtx.fillStyle = "rgba(75, 190, 80, 0.05)";
+  screenCtx.fillRect(0, scanY, w, 60);
+
+  // Text setup
+  screenCtx.imageSmoothingEnabled = false;
+  screenCtx.font = "bold 56px monospace";
+  screenCtx.fillStyle = "#8cff8c";
+  screenCtx.shadowColor = "#8cff8c";
+  screenCtx.shadowBlur = 4;
+
+  // Dynamic Content
+  const dateObj = new Date();
+  const timeStr = dateObj.toLocaleTimeString('ru-RU', { hour12: false });
+  const blink = Math.floor(now / 500) % 2 === 0 ? "_" : " ";
+  
+  // Random "memory" fluctuation
+  const memAvail = 640 - Math.floor(Math.random() * 24);
 
   const lines = [
-    "PIXEL-OS v1.0",
-    "READY >_",
-    "SYSTEM ONLINE",
-    "MEM: 64KB",
-    "TURBOWEB",
-    "DESIGN / CODE"
+    "KREO-OS v2.0",
+    `SYS TIME: ${timeStr}`,
+    `MEM: 640K / ${memAvail}K`,
+    "NETWORK: ONLINE",
+    "STATUS: SECURE",
+    `AWAITING CMD${blink}`
   ];
 
-  let y = 62;
-
+  let textY = 100;
   lines.forEach((line) => {
-    ctx.fillText(line, 36, y);
-    y += 42;
+    screenCtx.fillText(line, 60, textY);
+    textY += 80;
   });
 
-  const vignette = ctx.createRadialGradient(256, 160, 100, 256, 160, 330);
+  // Vignette
+  const vignette = screenCtx.createRadialGradient(512, 320, 200, 512, 320, 660);
   vignette.addColorStop(0, "rgba(0,0,0,0)");
   vignette.addColorStop(1, "rgba(0,0,0,.62)");
-  ctx.fillStyle = vignette;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  screenCtx.fillStyle = vignette;
+  screenCtx.fillRect(0, 0, w, h);
 
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.magFilter = THREE.NearestFilter;
-  texture.minFilter = THREE.NearestFilter;
-  texture.needsUpdate = true;
-
-  return texture;
+  screenTexture.needsUpdate = true;
 }
 
 const plasticMat = new THREE.MeshStandardMaterial({
@@ -149,7 +186,7 @@ const grayMat = new THREE.MeshStandardMaterial({
 });
 
 const screenMat = new THREE.MeshBasicMaterial({
-  map: createScreenTexture()
+  map: initScreenTexture()
 });
 
 const greenGlowMat = new THREE.MeshBasicMaterial({
@@ -314,6 +351,8 @@ function animate() {
   requestAnimationFrame(animate);
 
   screenGlow.intensity = 0.22 + Math.sin(Date.now() * 0.006) * 0.04;
+
+  updateScreenTexture();
 
   controls.update();
   renderer.render(scene, camera);
