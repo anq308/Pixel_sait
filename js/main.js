@@ -251,3 +251,65 @@ if (briefModal) {
         }
     });
 }
+
+// PROJECT MODAL LOGIC
+const projectCards = document.querySelectorAll('.project-card-custom');
+const projectModal = document.getElementById('project-modal');
+const projectCloseBtn = document.getElementById('project-close-btn');
+
+if (projectModal) {
+    const pmImg = document.getElementById('pm-img');
+    const pmTitle = document.getElementById('pm-title');
+    const pmTags = document.getElementById('pm-tags');
+    const pmDesc = document.getElementById('pm-desc');
+    const pmFullDesc = document.getElementById('pm-fulldesc');
+
+    projectCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const dataStr = card.getAttribute('data-project');
+            if (dataStr) {
+                const data = JSON.parse(dataStr);
+                
+                pmImg.style.background = data.gradient;
+                pmTitle.textContent = data.title;
+                
+                // Render tags
+                const tagsArr = data.tags.split(',');
+                pmTags.innerHTML = '';
+                tagsArr.forEach(tag => {
+                    const span = document.createElement('span');
+                    span.textContent = tag.trim();
+                    pmTags.appendChild(span);
+                });
+                
+                pmDesc.textContent = data.desc;
+                
+                // Simulate typing out the full description for brutalist feel
+                pmFullDesc.textContent = "";
+                let i = 0;
+                function typeDesc() {
+                    if (i < data.fullDesc.length) {
+                        pmFullDesc.textContent += data.fullDesc.charAt(i);
+                        i++;
+                        setTimeout(typeDesc, 20);
+                    }
+                }
+                typeDesc();
+                
+                projectModal.style.display = 'flex';
+                if (window.playBootSound) window.playBootSound();
+            }
+        });
+    });
+
+    projectCloseBtn.addEventListener('click', () => {
+        projectModal.style.display = 'none';
+        if (window.playTypingSound) window.playTypingSound();
+    });
+
+    projectModal.addEventListener('click', (e) => {
+        if (e.target === projectModal) {
+            projectModal.style.display = 'none';
+        }
+    });
+}
