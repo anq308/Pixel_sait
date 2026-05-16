@@ -41,6 +41,9 @@ function typeText(p, speed = 15) {
     function type() {
         if (i < originalText.length) {
             p.textContent += originalText.charAt(i);
+            if (window.playTypingSound) {
+                window.playTypingSound();
+            }
             i++;
             p.timeoutId = setTimeout(type, speed);
         }
