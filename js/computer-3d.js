@@ -64,8 +64,40 @@ function createPlasticTexture() {
   return texture;
 }
 
+let currentScreenMode = 0; // 0 = Terminal, 1 = 3D Engine, 2 = Dino Game
 let screenCanvas, screenCtx, screenTexture;
 let lastScreenUpdate = 0;
+
+// Dino Game Setup
+let dino = { y: 500, vy: 0, gravity: 2.5, jumpPower: -25, isJumping: false, isDead: false, score: 0, hiScore: 0 };
+let cacti = [];
+let gameSpeed = 15;
+let frameCount = 0;
+
+function resetDino() {
+    dino.y = 500;
+    dino.vy = 0;
+    dino.isJumping = false;
+    dino.isDead = false;
+    dino.score = 0;
+    cacti = [];
+    gameSpeed = 15;
+}
+
+window.addEventListener('keydown', (e) => {
+    if (currentScreenMode === 2) {
+        if ((e.code === 'Space' || e.code === 'ArrowUp')) {
+            e.preventDefault(); // Prevent page scroll
+            if (dino.isDead) {
+                resetDino();
+            } else if (!dino.isJumping) {
+                dino.vy = dino.jumpPower;
+                dino.isJumping = true;
+                if (window.playTypingSound) window.playTypingSound();
+            }
+        }
+    }
+});
 
 function initScreenTexture() {
   screenCanvas = document.createElement("canvas");
@@ -89,23 +121,24 @@ function updateScreenTexture() {
   if (!screenCtx || !screenTexture) return;
   
   const now = Date.now();
-  // Throttle updates to ~15fps for retro feel
-  if (now - lastScreenUpdate < 60) return;
+  if (now - lastScreenUpdate < 50) return; // ~20fps
   lastScreenUpdate = now;
 
   const w = screenCanvas.width;
   const h = screenCanvas.height;
 
-  // Base
-  screenCtx.fillStyle = "#041807";
-  screenCtx.fillRect(0, 0, w, h);
+  if (currentScreenMode === 0 || currentScreenMode === 1 || currentScreenMode === 2) {
+    // Base clear
+    screenCtx.fillStyle = "#041807";
+    screenCtx.fillRect(0, 0, w, h);
 
-  // Glow
-  const glow = screenCtx.createRadialGradient(512, 320, 80, 512, 320, 560);
-  glow.addColorStop(0, "rgba(75, 190, 80, .12)");
-  glow.addColorStop(1, "rgba(0, 0, 0, .18)");
-  screenCtx.fillStyle = glow;
-  screenCtx.fillRect(0, 0, w, h);
+    // Glow
+    const glow = screenCtx.createRadialGradient(512, 320, 80, 512, 320, 560);
+    glow.addColorStop(0, "rgba(75, 190, 80, .12)");
+    glow.addColorStop(1, "rgba(0, 0, 0, .18)");
+    screenCtx.fillStyle = glow;
+    screenCtx.fillRect(0, 0, w, h);
+  }
 
   // Static scanlines
   for (let y = 0; y < h; y += 8) {
@@ -118,35 +151,184 @@ function updateScreenTexture() {
   screenCtx.fillStyle = "rgba(75, 190, 80, 0.05)";
   screenCtx.fillRect(0, scanY, w, 60);
 
-  // Text setup
   screenCtx.imageSmoothingEnabled = false;
-  screenCtx.font = "bold 56px monospace";
-  screenCtx.fillStyle = "#8cff8c";
   screenCtx.shadowColor = "#8cff8c";
   screenCtx.shadowBlur = 4;
 
-  // Dynamic Content
-  const dateObj = new Date();
-  const timeStr = dateObj.toLocaleTimeString('ru-RU', { hour12: false });
-  const blink = Math.floor(now / 500) % 2 === 0 ? "_" : " ";
-  
-  // Random "memory" fluctuation
-  const memAvail = 640 - Math.floor(Math.random() * 24);
+  if (currentScreenMode === 0) {
+    // TERMINAL MODE
+    screenCtx.font = "bold 56px monospace";
+    screenCtx.fillStyle = "#8cff8c";
 
-  const lines = [
-    "KREO-OS v2.0",
-    `SYS TIME: ${timeStr}`,
-    `MEM: 640K / ${memAvail}K`,
-    "NETWORK: ONLINE",
-    "STATUS: SECURE",
-    `AWAITING CMD${blink}`
-  ];
+    const dateObj = new Date();
+    const timeStr = dateObj.toLocaleTimeString('ru-RU', { hour12: false });
+    const blink = Math.floor(now / 500) % 2 === 0 ? "_" : " ";
+    const memAvail = 640 - Math.floor(Math.random() * 24);
 
-  let textY = 100;
-  lines.forEach((line) => {
-    screenCtx.fillText(line, 60, textY);
-    textY += 80;
-  });
+    const lines = [
+      "KREO-OS v2.0",
+      `SYS TIME: ${timeStr}`,
+      `MEM: 640K / ${memAvail}K`,
+      "NETWORK: ONLINE",
+      "STATUS: SECURE",
+      `AWAITING CMD${blink}`
+    ];
+
+    let textY = 100;
+    lines.forEach((line) => {
+      screenCtx.fillText(line, 60, textY);
+      textY += 80;
+    });
+  } else if (currentScreenMode === 1) {
+    // 3D WIREFRAME ENGINE MODE
+    const cx = w / 2;
+    const cy = h / 2;
+    
+    screenCtx.fillStyle = "#8cff8c";
+    screenCtx.font = "bold 42px monospace";
+    screenCtx.fillText("KREO 3D ENGINE v1.0", 40, 80);
+    screenCtx.font = "24px monospace";
+    screenCtx.fillText("RENDER: WIREFRAME (HARDWARE ACCEL)", 40, 120);
+    
+    // 3D Cube Math
+    const size = 160;
+    const vertices = [
+        [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+        [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]
+    ];
+    const edges = [
+        [0,1], [1,2], [2,3], [3,0],
+        [4,5], [5,6], [6,7], [7,4],
+        [0,4], [1,5], [2,6], [3,7]
+    ];
+    
+    const angleX = now * 0.001;
+    const angleY = now * 0.0015;
+    
+    const projected = vertices.map(v => {
+        // Rotate Y
+        let x = v[0]*Math.cos(angleY) - v[2]*Math.sin(angleY);
+        let z = v[0]*Math.sin(angleY) + v[2]*Math.cos(angleY);
+        let y = v[1];
+        
+        // Rotate X
+        let y2 = y*Math.cos(angleX) - z*Math.sin(angleX);
+        let z2 = y*Math.sin(angleX) + z*Math.cos(angleX);
+        
+        // Project
+        let scale = 400 / (400 + z2 * size);
+        return [cx + x * size * scale, cy + y2 * size * scale];
+    });
+    
+    screenCtx.strokeStyle = "#8cff8c";
+    screenCtx.lineWidth = 4;
+    screenCtx.beginPath();
+    edges.forEach(edge => {
+        const p1 = projected[edge[0]];
+        const p2 = projected[edge[1]];
+        screenCtx.moveTo(p1[0], p1[1]);
+        screenCtx.lineTo(p2[0], p2[1]);
+    });
+    screenCtx.stroke();
+    
+    screenCtx.fillStyle = "rgba(75, 190, 80, 0.8)";
+    screenCtx.fillText(`POLYGONS: 12  VERTICES: 8`, 40, 560);
+    screenCtx.fillText(`FPS: 20 (LOCKED)`, 40, 600);
+    
+  } else if (currentScreenMode === 2) {
+    // DINO GAME MODE
+    frameCount++;
+    
+    if (!dino.isDead) {
+        dino.score++;
+        if (dino.score > dino.hiScore) dino.hiScore = dino.score;
+        if (dino.score % 500 === 0) gameSpeed += 1;
+        
+        // Physics
+        dino.vy += dino.gravity;
+        dino.y += dino.vy;
+        
+        if (dino.y > 500) {
+            dino.y = 500;
+            dino.vy = 0;
+            dino.isJumping = false;
+        }
+        
+        // Cacti spawn
+        if (Math.random() < 0.05 && (cacti.length === 0 || cacti[cacti.length-1].x < w - 400)) {
+            cacti.push({ x: w + 50, w: 20, h: 40 + Math.random() * 40 });
+        }
+        
+        for (let i = cacti.length - 1; i >= 0; i--) {
+            cacti[i].x -= gameSpeed;
+            if (cacti[i].x < -100) cacti.splice(i, 1);
+            else {
+                // Collision
+                const cx = cacti[i].x;
+                const cw = cacti[i].w;
+                const ch = cacti[i].h;
+                
+                // Dino box approx: x: 90 to 140, y: dino.y - 44 to dino.y
+                if (140 > cx - 10 && 90 < cx + cw + 10 && dino.y > 500 - ch && dino.y - 44 < 500) {
+                    dino.isDead = true;
+                }
+            }
+        }
+    }
+    
+    // Draw Ground
+    screenCtx.fillStyle = "#8cff8c";
+    screenCtx.fillRect(0, 500, w, 4);
+    
+    // Draw Cacti
+    cacti.forEach(c => {
+        screenCtx.fillRect(c.x, 500 - c.h, c.w, c.h);
+        // Arms
+        screenCtx.fillRect(c.x - 12, 500 - c.h + 10, 12, 16);
+        screenCtx.fillRect(c.x + c.w, 500 - c.h + 24, 12, 16);
+    });
+    
+    // Draw Dino (Pixel style)
+    const dx = 100;
+    const dy = dino.y;
+    screenCtx.fillStyle = "#8cff8c";
+    screenCtx.fillRect(dx + 20, dy - 44, 24, 20); // Head
+    screenCtx.fillStyle = "#041807";
+    screenCtx.fillRect(dx + 26, dy - 40, 4, 4); // Eye
+    screenCtx.fillStyle = "#8cff8c";
+    screenCtx.fillRect(dx + 24, dy - 24, 16, 4); // Snout
+    screenCtx.fillRect(dx, dy - 24, 20, 20); // Body
+    screenCtx.fillRect(dx - 10, dy - 28, 10, 8); // Tail
+    screenCtx.fillRect(dx + 20, dy - 16, 8, 4); // Arm
+    
+    // Legs
+    if (dino.isDead || dino.isJumping) {
+        screenCtx.fillRect(dx, dy - 4, 8, 4);
+        screenCtx.fillRect(dx + 12, dy - 4, 8, 4);
+    } else {
+        if (Math.floor(frameCount / 3) % 2 === 0) {
+            screenCtx.fillRect(dx, dy - 4, 8, 4); 
+            screenCtx.fillRect(dx + 12, dy, 8, 4); 
+        } else {
+            screenCtx.fillRect(dx, dy, 8, 4); 
+            screenCtx.fillRect(dx + 12, dy - 4, 8, 4); 
+        }
+    }
+    
+    // Score
+    screenCtx.font = "bold 32px monospace";
+    screenCtx.fillText(`HI: ${Math.floor(dino.hiScore/5)}  SCORE: ${Math.floor(dino.score/5)}`, w - 400, 60);
+    
+    if (dino.isDead) {
+        screenCtx.font = "bold 56px monospace";
+        screenCtx.fillText("G A M E  O V E R", w/2 - 240, h/2 - 50);
+        screenCtx.font = "24px monospace";
+        screenCtx.fillText("PRESS SPACE TO RESTART", w/2 - 160, h/2 + 20);
+    } else if (dino.score === 0) {
+        screenCtx.font = "24px monospace";
+        screenCtx.fillText("PRESS SPACE TO JUMP", 100, 400);
+    }
+  }
 
   // Vignette
   const vignette = screenCtx.createRadialGradient(512, 320, 200, 512, 320, 660);
@@ -294,9 +476,10 @@ for (let i = 0; i < 9; i++) {
 }
 
 // Круглые кнопки
-const buttonX = [0.85, 1.45, 2.05];
+const interactiveButtons = [];
+const buttonXPositions = [0.85, 1.45, 2.05];
 
-buttonX.forEach((x) => {
+buttonXPositions.forEach((x, index) => {
   const btn = new THREE.Mesh(
     new THREE.CylinderGeometry(0.17, 0.17, 0.055, 16),
     darkMat
@@ -305,6 +488,9 @@ buttonX.forEach((x) => {
   btn.rotation.x = Math.PI / 2;
   btn.position.set(x, 0.57, 1.765);
   btn.castShadow = true;
+  btn.userData = { isButton: true, mode: index };
+  
+  interactiveButtons.push(btn);
   group.add(btn);
 });
 
@@ -346,6 +532,35 @@ floor.receiveShadow = true;
 scene.add(floor);
 
 group.rotation.y = -0.15;
+
+// RAYCASTER FOR INTERACTIVE BUTTONS
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+renderer.domElement.addEventListener('pointerdown', (e) => {
+    const rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(interactiveButtons);
+    
+    if (intersects.length > 0) {
+        const btn = intersects[0].object;
+        
+        // Change Screen Mode
+        currentScreenMode = btn.userData.mode;
+        
+        // Push button animation
+        btn.position.z = 1.74;
+        setTimeout(() => {
+            btn.position.z = 1.765;
+        }, 150);
+        
+        // Play sound if available
+        if (window.playBootSound) window.playBootSound();
+    }
+});
 
 function animate() {
   requestAnimationFrame(animate);
