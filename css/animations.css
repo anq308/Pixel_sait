@@ -69,6 +69,19 @@
     transition-delay: 0.2s;
 }
 
+/* --- WORD REVEAL (FOR HEADINGS) --- */
+.word-reveal {
+    transform: translateY(50px) rotateX(-90deg);
+    transform-origin: top center;
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+}
+
+.word-reveal-container.visible .word-reveal {
+    transform: translateY(0) rotateX(0);
+    opacity: 1;
+}
+
 /* --- NOISE TEXTURE --- */
 body::before {
     content: '';

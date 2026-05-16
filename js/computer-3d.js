@@ -33,6 +33,8 @@ container.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.07;
+controls.enableZoom = false; // Disable zooming so size stays static
+controls.enablePan = false;  // Prevent moving the model out of center
 controls.autoRotate = true;
 controls.autoRotateSpeed = 0.55;
 controls.target.set(0, 1.4, 0);
