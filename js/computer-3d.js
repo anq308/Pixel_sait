@@ -548,8 +548,26 @@ renderer.domElement.addEventListener('pointerdown', (e) => {
     if (intersects.length > 0) {
         const btn = intersects[0].object;
         
-        // Change Screen Mode
-        currentScreenMode = btn.userData.mode;
+        // If clicking the game button while the game is already active, jump!
+        if (btn.userData.mode === 2 && currentScreenMode === 2) {
+            if (dino.isDead) {
+                resetDino();
+            } else if (!dino.isJumping) {
+                dino.vy = dino.jumpPower;
+                dino.isJumping = true;
+                if (window.playTypingSound) window.playTypingSound();
+            }
+        } else {
+            // Change Screen Mode
+            currentScreenMode = btn.userData.mode;
+            
+            if (currentScreenMode === 2) {
+                // Orient camera roughly straight-on when starting the game
+                // So the user can see the game clearly
+                // We'll let orbit controls damping handle the smooth rotation towards this
+                // if we don't force it, but just stopping auto-rotate is enough.
+            }
+        }
         
         // Push button animation
         btn.position.z = 1.74;
@@ -566,6 +584,9 @@ function animate() {
   requestAnimationFrame(animate);
 
   screenGlow.intensity = 0.22 + Math.sin(Date.now() * 0.006) * 0.04;
+
+  // Stop rotating when playing Dino
+  controls.autoRotate = (currentScreenMode !== 2);
 
   updateScreenTexture();
 
