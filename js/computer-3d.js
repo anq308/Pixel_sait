@@ -68,6 +68,52 @@ let currentScreenMode = 0; // 0 = Terminal, 1 = 3D Engine, 2 = Dino Game
 let screenCanvas, screenCtx, screenTexture;
 let lastScreenUpdate = 0;
 
+// HTML Modal for Fullscreen Game
+const dinoModal = document.createElement('div');
+dinoModal.style.position = 'fixed';
+dinoModal.style.top = '0';
+dinoModal.style.left = '0';
+dinoModal.style.width = '100vw';
+dinoModal.style.height = '100vh';
+dinoModal.style.backgroundColor = 'rgba(0,0,0,0.85)';
+dinoModal.style.zIndex = '10000';
+dinoModal.style.display = 'none';
+dinoModal.style.alignItems = 'center';
+dinoModal.style.justifyContent = 'center';
+dinoModal.style.backdropFilter = 'blur(10px)';
+
+const modalClose = document.createElement('div');
+modalClose.textContent = '[ ЗАКРЫТЬ ]';
+modalClose.style.position = 'absolute';
+modalClose.style.top = '30px';
+modalClose.style.right = '40px';
+modalClose.style.color = '#8cff8c';
+modalClose.style.fontSize = '24px';
+modalClose.style.cursor = 'pointer';
+modalClose.style.fontFamily = "'Courier New', monospace";
+modalClose.style.fontWeight = 'bold';
+
+const gameContainer = document.createElement('div');
+gameContainer.style.width = '1024px';
+gameContainer.style.maxWidth = '95vw';
+gameContainer.style.border = '4px solid #8cff8c';
+gameContainer.style.boxShadow = '15px 15px 0px 0px rgba(140, 255, 140, 0.3)';
+gameContainer.style.backgroundColor = '#041807';
+gameContainer.style.overflow = 'hidden';
+gameContainer.style.display = 'flex';
+
+dinoModal.appendChild(modalClose);
+dinoModal.appendChild(gameContainer);
+document.body.appendChild(dinoModal);
+
+modalClose.addEventListener('click', () => {
+    dinoModal.style.display = 'none';
+    if (gameContainer.contains(screenCanvas)) {
+        screenCanvas.style.display = 'none';
+        gameContainer.removeChild(screenCanvas);
+    }
+});
+
 // Dino Game Setup
 let dino = { y: 500, vy: 0, gravity: 2.5, jumpPower: -25, isJumping: false, isDead: false, score: 0, hiScore: 0 };
 let cacti = [];
@@ -301,6 +347,10 @@ function updateScreenTexture() {
     screenCtx.fillRect(dx - 10, dy - 28, 10, 8); // Tail
     screenCtx.fillRect(dx + 20, dy - 16, 8, 4); // Arm
     
+    // Maximize Button
+    screenCtx.font = "bold 32px monospace";
+    screenCtx.fillText("[ □ ] FULLSCREEN", 20, 50);
+    
     // Legs
     if (dino.isDead || dino.isJumping) {
         screenCtx.fillRect(dx, dy - 4, 8, 4);
@@ -445,7 +495,8 @@ bevelBox(3.85, 2.45, 0.2, 0, 2.25, 1.48, plasticDarkMat, 0.16);
 bevelBox(3.45, 2.08, 0.13, 0, 2.28, 1.61, blackMat, 0.18);
 
 // Зеленый экран с текстом
-bevelBox(3.18, 1.82, 0.055, 0, 2.3, 1.695, screenMat, 0.18);
+const screenMesh = bevelBox(3.18, 1.82, 0.055, 0, 2.3, 1.695, screenMat, 0.18);
+screenMesh.userData = { isScreen: true };
 
 // Легкое свечение экрана
 const glowPanel = bevelBox(3.2, 1.85, 0.018, 0, 2.3, 1.735, greenGlowMat, 0.18);
@@ -475,8 +526,9 @@ for (let i = 0; i < 9; i++) {
   cube(0.045, 0.25, 0.025, -0.48 + i * 0.11, 0.55, 1.755, darkMat);
 }
 
+const interactiveButtons = [screenMesh];
+
 // Круглые кнопки
-const interactiveButtons = [];
 const buttonXPositions = [0.85, 1.45, 2.05];
 
 buttonXPositions.forEach((x, index) => {
@@ -547,6 +599,31 @@ renderer.domElement.addEventListener('pointerdown', (e) => {
     
     if (intersects.length > 0) {
         const btn = intersects[0].object;
+        
+        if (btn.userData.isScreen) {
+            if (currentScreenMode === 2) {
+                const uv = intersects[0].uv;
+                if (!uv) return;
+                
+                // ExtrudeGeo raw UV mapping logic: u=x, v=y
+                const nx = (uv.x + 1.59) / 3.18;
+                const ny = (uv.y + 0.91) / 1.82;
+                
+                const cx = nx * 1024;
+                const cy = (1 - ny) * 640;
+                
+                // Maximize button bounds (x: 0-350, y: 0-80)
+                if (cx >= 0 && cx <= 350 && cy >= 0 && cy <= 80) {
+                    dinoModal.style.display = 'flex';
+                    screenCanvas.style.display = 'block';
+                    screenCanvas.style.width = '100%';
+                    screenCanvas.style.height = 'auto';
+                    gameContainer.appendChild(screenCanvas);
+                    if (window.playBootSound) window.playBootSound();
+                }
+            }
+            return;
+        }
         
         // If clicking the game button while the game is already active, jump!
         if (btn.userData.mode === 2 && currentScreenMode === 2) {
