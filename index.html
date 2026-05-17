@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KREO — Студия цифрового превосходства</title>
-    <meta name="description" content="Создаем уникальные цифровые решения, которые выделяют ваш бизнес среди конкурентов. Дизайн, разработка, анимация.">
+    <title>KREO — разработка сайтов, UI/UX дизайн, брендинг и 3D-анимация</title>
+    <meta name="description" content="KREO разрабатывает уникальные сайты, UI/UX-интерфейсы, брендинг, motion-дизайн и 3D-анимацию для бизнеса. Создаем быстрые, адаптивные и запоминающиеся digital-проекты под ключ.">
+    <meta name="robots" content="index, follow">
+    <!-- TODO: replace https://example.com/ with the real production domain. -->
+    <link rel="canonical" href="https://example.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="KREO">
+    <meta property="og:title" content="KREO — разработка сайтов, UI/UX дизайн, брендинг и 3D-анимация">
+    <meta property="og:description" content="Digital production agency: уникальные сайты, интерфейсы, брендинг, motion-дизайн и 3D-анимация для бизнеса.">
+    <meta property="og:url" content="https://example.com/">
+    <meta property="og:image" content="https://example.com/pixel_computer.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KREO — разработка сайтов, UI/UX дизайн, брендинг и 3D-анимация">
+    <meta name="twitter:description" content="Создаем быстрые, адаптивные и запоминающиеся digital-проекты под ключ: сайты, UI/UX, брендинг, motion и 3D.">
+    <meta name="twitter:image" content="https://example.com/pixel_computer.png">
+    <meta name="theme-color" content="#000000">
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/pixel-overrides.css">
     <link rel="stylesheet" href="css/preloader.css">
@@ -14,10 +29,72 @@
     <link rel="stylesheet" href="css/computer.css">
     <link rel="stylesheet" href="css/sections.css">
     <link rel="stylesheet" href="css/animations.css">
+   
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Syne:wght@700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://example.com/#organization",
+          "name": "KREO",
+          "url": "https://example.com/",
+          "logo": "https://example.com/pixel_computer.png",
+          "email": "1angelovyaroslav@gmail.com",
+          "telephone": "+79165053839",
+          "areaServed": "Россия",
+          "sameAs": [
+            "https://t.me/anq308"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://example.com/#website",
+          "url": "https://example.com/",
+          "name": "KREO",
+          "description": "Разработка сайтов, UI/UX дизайн, брендинг, motion-дизайн и 3D-анимация для бизнеса.",
+          "publisher": {
+            "@id": "https://example.com/#organization"
+          },
+          "inLanguage": "ru-RU"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://example.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Сколько времени занимает создание сайта?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "В среднем разработка уникального лендинга занимает от 3 до 5 недель. Сложные корпоративные сайты или интернет-магазины могут занимать от 2 до 4 месяцев. Все зависит от объема и сложности задач."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Почему вы не работаете по шаблонам?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Шаблоны ограничивают бизнес и делают его похожим на сотни других. Мы создаем индивидуальный дизайн, который учитывает именно ваши бизнес-цели и особенности аудитории."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Входит ли SEO в разработку?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Да, мы закладываем базовую SEO-оптимизацию на этапе разработки: правильную структуру заголовков, высокую скорость загрузки, семантический код и мета-теги."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <script type="importmap">
     {
       "imports": {
@@ -28,6 +105,8 @@
     </script>
 </head>
 <body>
+
+
 
     <!-- Preloader -->
     <div class="preloader">
@@ -41,7 +120,7 @@
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <div class="nav-left">
-                <a href="#" class="logo">[KREO]</a>
+                <a href="#hero" class="logo">[KREO]</a>
                 <div class="nav-status">
                     <span class="status-dot"></span>
                     <span class="status-text">SYS.ONLINE</span>
@@ -257,7 +336,7 @@
                             <span class="tag">Портфолио</span>
                             <h2>Отобранные кейсы</h2>
                         </div>
-                        <a href="#" class="btn-text">Все проекты <span>→</span></a>
+                        <a href="#projects" class="btn-text">Все проекты <span>→</span></a>
                     </div>
                 </div>
                 <div class="projects-slider-wrapper">
@@ -603,16 +682,16 @@
                     </div>
                     <div class="footer-col">
                         <h3>[ CONTACTS ]</h3>
-                        <a href="mailto:hello@kreo.agency">HELLO@KREO.AGENCY</a>
-                        <a href="tel:+123456789">+1 (234) 567-89</a>
-                        <p>MOSCOW, RUSSIA</p>
+                        <a href="mailto:1angelovyaroslav@gmail.com" class="footer-contact-link scramble-trigger" data-text="1ANGELOVYAROSLAV@GMAIL.COM">1ANGELOVYAROSLAV@GMAIL.COM</a>
+                        <a href="tel:+79165053839" class="footer-contact-link scramble-trigger" data-text="+7 916 505 38 39">+7 916 505 38 39</a>
+                        <p>Работаем удалённо по России</p>
                     </div>
                     <div class="footer-col">
                         <h3>[ SOCIALS ]</h3>
-                        <a href="#">DRIBBBLE</a>
-                        <a href="#">BEHANCE</a>
-                        <a href="#">TELEGRAM</a>
-                        <a href="#">INSTAGRAM</a>
+                        <a aria-disabled="true" role="link" tabindex="-1">DRIBBBLE</a>
+                        <a aria-disabled="true" role="link" tabindex="-1">BEHANCE</a>
+                        <a href="https://t.me/anq308" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
+                        <a aria-disabled="true" role="link" tabindex="-1">INSTAGRAM</a>
                     </div>
                 </div>
                 <div class="footer-bottom-brutal">
@@ -668,7 +747,7 @@
                     <hr class="pixel-hr">
                     <p class="pm-fulldesc" id="pm-fulldesc"></p>
                     <div style="margin-top: 30px;">
-                        <a href="#" class="btn" style="background: #fff !important; color: #000 !important; border: 3px solid #8cff8c !important;">> Открыть Live Preview</a>
+                        <a class="btn" aria-disabled="true" role="link" tabindex="-1" style="background: #fff !important; color: #000 !important; border: 3px solid #8cff8c !important;">> Открыть Live Preview</a>
                     </div>
                 </div>
             </div>
@@ -691,5 +770,6 @@
     <script src="js/sound.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/computer-3d.js" type="module"></script>
+   
 </body>
 </html>

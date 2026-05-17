@@ -851,6 +851,10 @@
     transition: all 0.2s;
 }
 
+.footer-col a.footer-contact-link {
+    color: #00ff00;
+}
+
 .footer-col a:hover {
     color: var(--accent-color, #00ff00);
     transform: translateX(5px);

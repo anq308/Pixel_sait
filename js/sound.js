@@ -1,7 +1,7 @@
 // js/sound.js
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioCtx = null;
-let soundEnabled = false;
+window.soundEnabled = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     const navLeft = document.querySelector('.nav-left');
@@ -20,11 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 audioCtx.resume();
             }
             
-            soundEnabled = !soundEnabled;
+            window.soundEnabled = !window.soundEnabled;
             const dot = soundToggle.querySelector('.status-dot');
             const text = soundToggle.querySelector('.status-text');
             
-            if (soundEnabled) {
+            if (window.soundEnabled) {
                 dot.style.background = '#00ff00';
                 dot.style.animation = 'blink 1.5s infinite';
                 text.style.color = '#00ff00';
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function playTick(type = 'hover') {
-    if (!soundEnabled || !audioCtx) return;
+    if (!window.soundEnabled || !audioCtx) return;
 
     const osc = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
@@ -70,7 +70,7 @@ function playTick(type = 'hover') {
 }
 
 function playBootSound() {
-    if (!soundEnabled || !audioCtx) return;
+    if (!window.soundEnabled || !audioCtx) return;
     const osc = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
     osc.connect(gainNode);

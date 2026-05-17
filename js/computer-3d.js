@@ -115,10 +115,25 @@ modalClose.addEventListener('click', () => {
 });
 
 // Dino Game Setup
+const dinoMusic = new Audio('muzick/ROCKET - Money.mp3');
+dinoMusic.loop = true;
+
+function playDinoMusic() {
+    if (window.soundEnabled && dinoMusic.paused) {
+        dinoMusic.play().catch(e => console.log("Music play blocked", e));
+    }
+}
+
+function stopDinoMusic() {
+    dinoMusic.pause();
+    dinoMusic.currentTime = 0;
+}
+
 let dino = { y: 500, vy: 0, gravity: 2.5, jumpPower: -25, isJumping: false, isDead: false, score: 0, hiScore: 0 };
 let cacti = [];
 let gameSpeed = 15;
 let frameCount = 0;
+let gameStarted = false;
 
 function resetDino() {
     dino.y = 500;
@@ -128,6 +143,8 @@ function resetDino() {
     dino.score = 0;
     cacti = [];
     gameSpeed = 15;
+    gameStarted = false;
+    stopDinoMusic();
 }
 
 window.addEventListener('keydown', (e) => {
@@ -139,6 +156,7 @@ window.addEventListener('keydown', (e) => {
             } else if (!dino.isJumping) {
                 dino.vy = dino.jumpPower;
                 dino.isJumping = true;
+                gameStarted = true;
                 if (window.playTypingSound) window.playTypingSound();
             }
         }
@@ -285,8 +303,9 @@ function updateScreenTexture() {
     // DINO GAME MODE
     frameCount++;
     
-    if (!dino.isDead) {
+    if (!dino.isDead && gameStarted) {
         dino.score++;
+        playDinoMusic();
         if (dino.score > dino.hiScore) dino.hiScore = dino.score;
         if (dino.score % 500 === 0) gameSpeed += 1;
         
@@ -317,6 +336,7 @@ function updateScreenTexture() {
                 // Dino box approx: x: 90 to 140, y: dino.y - 44 to dino.y
                 if (140 > cx - 10 && 90 < cx + cw + 10 && dino.y > 500 - ch && dino.y - 44 < 500) {
                     dino.isDead = true;
+                    stopDinoMusic();
                 }
             }
         }
@@ -632,10 +652,12 @@ renderer.domElement.addEventListener('pointerdown', (e) => {
             } else if (!dino.isJumping) {
                 dino.vy = dino.jumpPower;
                 dino.isJumping = true;
+                gameStarted = true;
                 if (window.playTypingSound) window.playTypingSound();
             }
         } else {
             // Change Screen Mode
+            stopDinoMusic();
             currentScreenMode = btn.userData.mode;
             
             if (currentScreenMode === 2) {
